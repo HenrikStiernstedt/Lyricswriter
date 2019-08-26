@@ -14,7 +14,7 @@
       font-size: 18px;
     }
 
-    #originalTextArea {
+    #mainTextArea {
       line-height: 3em;
       font-family: monospace;
       /*margin-top: -33px;*/
@@ -32,25 +32,52 @@
 </head>
 <body>
 
-Your lyrics:<br />
-<textarea id="mainTextArea" rows="20" cols="70" ></textArea>
+Original lyrics:<br />
+<textarea id="originalTextArea" rows="20" cols="70" >
+There is a house in New Orleans
+They call the Rising Sun
+And it's been the ruin of many a poor boy
+And God, I know I'm one
+
+My mother was a tailor
+She sewed my new blue jeans
+My father was a gamblin' man
+Down in New Orleans
+
+Now the only thing a gambler needs
+Is a suitcase and trunk
+And the only time he'll be satisfied
+Is when he's all drunk
+</textArea>
 
 
 <p>
 
 <br />
+<input type="Button" value="Rimma på markerat ord" id="RhymeButon" onClick="rhyme()"></input>
+<input type="Button" value="Synonymer till markerat ord" id="SynonymButon" onClick="synonyme()"></input>
+
 <div id="originalOverlay">
-Jag trivs bäst i öppna landskap<br />
-Nära havet vill jag bo<br />
-Några månader om året<br />
-så at själen kan få ro
 </div>
-<textarea id="originalTextArea"  rows="20" cols="70">
-Jag trivs bäst i öppna landskap
-Nära GI vill jag bo
+<textarea id="mainTextArea"  rows="20" cols="70">
+Det finns en knapp i Softadmin
+Den kallas för deploy
+Men den som får paket idag
+(är) Supporten i Hanoi.
+
+Mitt team och jag har skräddarsytt
+en egen leverans
+Och allt gick bra ända fram
+Till min prod-instans
+
+Ett sista klick på arbetsda’n
+Innan min fredagsgrogg
+Men den enda som blir full ikväll
+Är min transaktionslogg
 </textarea>
 
 <!-- HTML Codes by Quackit.com -->
+<!--
 <style type="text/css">
 textarea.html-text-box {background-color:ffffff;background-repeat:no-repeat;background-attachment:fixed;border-width:1;border-style:solid;border-color:cccccc;font-family:Arial;font-size:8pt;color:1879e4;}
 input.html-text-box {background-color:ffffff;font-family:Arial;font-size:8pt;color:000000;}
@@ -59,10 +86,14 @@ input.html-text-box {background-color:ffffff;font-family:Arial;font-size:8pt;col
 <textarea name="comments" cols="50" rows="10" class="html-text-box" onselect="alert('Hej');"></textarea>
 <p><input type="submit" value="Submit" class="html-text-box"><input type="reset" value="Reset" class="html-text-box"></p>
 </form>
+-->
 
+<iframe id="RyhmFrame" frameborder="5" width="800" height="1000"></iframe>
+
+<!--<input id="RhymetTextBox"></input>-->
 
 <script type="text/javascript">
-  $( "#mainTextArea" )
+  $( "#originalTextArea" )
     .keyup(function () {
       //alert("Change!");
 
@@ -74,6 +105,105 @@ input.html-text-box {background-color:ffffff;font-family:Arial;font-size:8pt;col
 
 </script>
 
+
+<script type="text/javascript">
+
+function updateRhymeFrame(word, site)
+{
+  var map = {};
+  map["synonymer.se"] = "https://www.synonymer.se/sv-syn/";
+  map["DbLex"] =  "http://dblex.com/rimlexikon/index.php?rim=";
+
+   $('#RyhmFrame').attr('src', map[site] + word);
+}
+
+
+
+
+
+function rhyme()
+{
+  var word = getSelectedWord();
+  console.log("Rima på: " + word);
+  if(word !== "")
+  {
+    updateRhymeFrame(word, "DbLex");
+  }
+}
+
+function synonyme()
+{
+  var word = getSelectedWord();
+  console.log("Hitta synonymer till: " + word);
+  if(word !== "")
+  {
+    updateRhymeFrame(word, "synonymer.se");
+  }
+}
+
+function getSelectedWord()
+{
+  var word = getInputSelection($('#mainTextArea'));
+  if(word === "")
+  {
+     word = getInputSelection($('#originalTextArea'));
+  }
+  return word;
+}
+
+function getInputSelection(elem){
+ if(typeof elem != "undefined"){
+  s=elem[0].selectionStart;
+  e=elem[0].selectionEnd;
+  return elem.val().substring(s, e);
+ }else{
+  return '';
+ }
+}
+
+/*
+ * Unused tests below.
+ */
+
+ function getRhymeFromDBLex(word)
+ {
+   $.ajax({
+     url: "http://dblex.com/rimlexikon/index.php?rim" + word,
+     context: document.body
+   }).done(function() {
+     $( this ).addClass( "done" );
+   });
+ }
+
+function ajax_aboutus_request(data)
+{
+
+	var URL='http://dblex.com/rimlexikon/index.php?rim='+data;
+	var ajax = new Ajax.Request(URL,
+   { method: 'get',onSuccess: function(display)
+		  {
+
+		$('iframe').update(display.responseText);
+
+		   } ,
+ 	onFailure: function(error)
+		  {
+		  alert('errors in js');
+		  }
+
+
+   });
+ }
+
+/*
+$("#RhymeButon").onClick(function() {
+  var word = $('#RhymetTextBox').val();
+  console.log(word);
+  ajax_aboutus_request(word);
+});
+*/
+
+</script>
 </body>
 
 </html>
