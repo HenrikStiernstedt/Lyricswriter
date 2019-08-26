@@ -1,0 +1,79 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <style>
+    #originalOverlay {
+      position: absolute;
+      margin-top: 1em;
+      line-height: 3em;
+      /*margin-left: 1em;*/
+      font-family: monospace;
+      color: gray;
+      z-index: -50;
+      margin-left: 3px;
+      font-size: 18px;
+    }
+
+    #originalTextArea {
+      line-height: 3em;
+      font-family: monospace;
+      /*margin-top: -33px;*/
+
+      background: transparent;
+      font-size: 18px;
+    }
+    div {
+      /* background-color: lightblue; */
+    }
+  </style>
+
+
+
+</head>
+<body>
+
+Your lyrics:<br />
+<textarea id="mainTextArea" rows="20" cols="70" ></textArea>
+
+
+<p>
+
+<br />
+<div id="originalOverlay">
+Jag trivs bäst i öppna landskap<br />
+Nära havet vill jag bo<br />
+Några månader om året<br />
+så at själen kan få ro
+</div>
+<textarea id="originalTextArea"  rows="20" cols="70">
+Jag trivs bäst i öppna landskap
+Nära GI vill jag bo
+</textarea>
+
+<!-- HTML Codes by Quackit.com -->
+<style type="text/css">
+textarea.html-text-box {background-color:ffffff;background-repeat:no-repeat;background-attachment:fixed;border-width:1;border-style:solid;border-color:cccccc;font-family:Arial;font-size:8pt;color:1879e4;}
+input.html-text-box {background-color:ffffff;font-family:Arial;font-size:8pt;color:000000;}
+</style>
+<form method="post" action="">
+<textarea name="comments" cols="50" rows="10" class="html-text-box" onselect="alert('Hej');"></textarea>
+<p><input type="submit" value="Submit" class="html-text-box"><input type="reset" value="Reset" class="html-text-box"></p>
+</form>
+
+
+<script type="text/javascript">
+  $( "#mainTextArea" )
+    .keyup(function () {
+      //alert("Change!");
+
+      var str = $( this ).val();
+      console.log("change: "+str);
+      $( "#originalOverlay" ).html(str.replace(/\n/g, "<br />"));
+    })
+    .change();
+
+</script>
+
+</body>
+
+</html>
