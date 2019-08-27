@@ -22,7 +22,7 @@
 
       background: transparent;
       font-size: 18px;
-      
+
     }
     div {
       /* background-color: lightblue; */
@@ -78,6 +78,8 @@ Men den enda som blir full ikväll
 Är min transaktionslogg
 </textarea>
 
+<div id="rhymeDiv"></div>
+
 <!-- HTML Codes by Quackit.com -->
 <!--
 <style type="text/css">
@@ -130,6 +132,7 @@ function rhyme()
   if(word !== "")
   {
     updateRhymeFrame(word, "DbLex");
+    parseWebsiteCall(word);
   }
 }
 
@@ -162,6 +165,29 @@ function getInputSelection(elem){
   return '';
  }
 }
+
+/*
+ * Anropa och ragex-parsa ut en webbsida och klistra in en del av sidan i denna.
+ * Går via slumpmässigt vald CORS-fejkare, just nu whateverorigin.org.
+ * TODO: Bygg stöd för att knyta valfritt regex och valfri url.
+ */
+function parseWebsiteCall(word)
+{
+  //var word = "test";
+  //var url = "http://www.whateverorigin.org/get?url=" + encodeURIComponent("http://dblex.com/rimlexikon/index.php?rim="+ word) + "&callback=?"
+  //console.log("url: "+ url);
+
+  $('#rhymeDiv').html("");
+
+  $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent("http://dblex.com/rimlexikon/index.php?rim="+ word) + '&callback=?',
+  function(data){
+  	  //console.log(data.contents);
+      var table = data.contents.match(/<\s*table class='output'>([\s\S])*?<\s*\/table>/gm)[0];
+      //console.log(table);
+      $('#rhymeDiv').html(table);
+  });
+}
+
 
 /*
  * Unused tests below.
