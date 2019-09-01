@@ -1,7 +1,10 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
   <style>
     #originalOverlay {
       position: absolute;
@@ -29,11 +32,12 @@
     }
   </style>
 
-
-
 </head>
-<body>
 
+<body>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-lg-12">
 Original lyrics:<br />
 <textarea id="originalTextArea" rows="20" cols="70" >
 There is a house in New Orleans
@@ -52,16 +56,20 @@ And the only time he'll be satisfied
 Is when he's all drunk
 </textArea>
 
+</div>
+</div>
 
 <p>
-
+  <div class="row">
+    <div class="col-xs-12 col-lg-6">
 <br />
+<div class="row">
 <input type="Button" value="Rimma på markerat ord" id="RhymeButon" onClick="rhyme()"></input>
 <input type="Button" value="Synonymer till markerat ord" id="SynonymButon" onClick="synonyme()"></input>
-
+</div>
 <div id="originalOverlay">
 </div>
-<textarea id="mainTextArea"  rows="20" cols="70">
+<textarea id="mainTextArea"  rows="20" cols="60">
 Det finns en knapp i Softadmin
 Den kallas för deploy
 Men den som får paket idag
@@ -77,8 +85,9 @@ Innan min fredagsgrogg
 Men den enda som blir full ikväll
 Är min transaktionslogg
 </textarea>
+</div>
 
-<div id="rhymeDiv"></div>
+
 
 <!-- HTML Codes by Quackit.com -->
 <!--
@@ -91,8 +100,11 @@ input.html-text-box {background-color:ffffff;font-family:Arial;font-size:8pt;col
 <p><input type="submit" value="Submit" class="html-text-box"><input type="reset" value="Reset" class="html-text-box"></p>
 </form>
 -->
-
+<div class="col-xs-12 col-lg-6">
+<div id="rhymeDiv">INSERT TEXT HERE</div>
 <iframe id="RyhmFrame" frameborder="5" width="800" height="1000"></iframe>
+</div>
+</div>
 
 <!--<input id="RhymetTextBox"></input>-->
 
